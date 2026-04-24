@@ -1,0 +1,24 @@
+{
+  "name": "framework",
+  "version": "1.0.0",
+  "description": "Futuro framework para o novo projeto",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MateusSeemann/framework.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/MateusSeemann/framework/issues"
+  },
+  "homepage": "https://github.com/MateusSeemann/framework#readme",
+  "devDependencies": {
+    "cypress": "^15.14.1"
+  }
+}
