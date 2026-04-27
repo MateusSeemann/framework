@@ -4,7 +4,9 @@
   "description": "Futuro framework para o novo projeto",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "cypress run",
+    "pdf": "node gerar-pdf.js",
+    "all": "cypress run && node gerar-pdf.js"
   },
   "repository": {
     "type": "git",
@@ -19,6 +21,16 @@
   },
   "homepage": "https://github.com/MateusSeemann/framework#readme",
   "devDependencies": {
-    "cypress": "^15.14.1"
+    "@badeball/cypress-cucumber-preprocessor": "^24.0.1",
+    "@bahmutov/cypress-esbuild-preprocessor": "^2.2.8",
+    "@cypress/browserify-preprocessor": "^3.0.2",
+    "cypress": "^15.14.1",
+    "cypress-mochawesome-reporter": "^4.0.2",
+    "esbuild": "^0.28.0",
+    "marge": "^1.0.1",
+    "mochawesome": "^7.1.4",
+    "mochawesome-merge": "^5.1.1",
+    "mochawesome-report-generator": "^6.3.2",
+    "puppeteer": "^24.42.0"
   }
 }

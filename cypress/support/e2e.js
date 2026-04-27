@@ -15,6 +15,4 @@
 
 // Import commands.js using ES2015 syntax:
 import './commands'
-
-// Import cucumber hooks
-import './hooks/hooks'
+import 'cypress-mochawesome-reporter/register';

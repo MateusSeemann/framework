@@ -1,53 +1,69 @@
 const { defineConfig } = require("cypress");
 const { addCucumberPreprocessorPlugin } = require("@badeball/cypress-cucumber-preprocessor");
-const { preprocessor, isStep } = require("@badeball/cypress-cucumber-preprocessor/browserify");
+const createBundler = require("@bahmutov/cypress-esbuild-preprocessor");
+const createEsbuildPlugin = require("@badeball/cypress-cucumber-preprocessor/esbuild").createEsbuildPlugin;
 
 module.exports = defineConfig({
   projectId: "framework",
-  
+
   // Configurações gerais
-  viewportWidth: 1280,
-  viewportHeight: 720,
+  viewportWidth: 1920,
+  viewportHeight: 1080,
   defaultCommandTimeout: 5000,
   requestTimeout: 5000,
   responseTimeout: 5000,
-  
+
+  reporter: "cypress-mochawesome-reporter",
+  reporterOptions: {
+    reportDir: "cypress/reports",
+    overwrite: false,
+    html: true,
+    json: true,
+    charts: true,
+    embeddedScreenshots: true,
+    inlineAssets: true,
+  },
+
   // Comportamento
   numTestsKeptInMemory: 0,
   watchForFileChanges: true,
-  
-  // Reporter
-  reporter: "cypress-mochawesome-reporter",
-  reporterOptions: {
-    charts: true,
-    reportDir: "cypress/reports",
-    reportFilename: "report.html",
-  },
 
   e2e: {
-    baseUrl: "http://localhost:3000",
-    specPattern: ["cypress/e2e/**/*.cy.js", "cypress/e2e/**/*.feature"],
-    supportFile: "cypress/support/e2e.js",
-    stepDefinitions: "cypress/support/step_definitions/**/*.js",
-    
+    specPattern: "cypress/features/**/*.feature",
+
     async setupNodeEvents(on, config) {
-      // Implementar listeners de eventos aqui
       require("cypress-mochawesome-reporter/plugin")(on);
-      
-      // Adicionar suporte a Cucumber
+
       await addCucumberPreprocessorPlugin(on, config);
-      
+
       on(
         "file:preprocessor",
-        preprocessor(config, {
-          typescript: require("typescript"),
+        createBundler({
+          plugins: [createEsbuildPlugin(config)],
         })
       );
-      
+
+      on("after:run", async () => {
+        console.log("Gerando relatório HTML...");
+        try {
+          const marge = require("mochawesome-report-generator");
+
+          await marge.create("cypress/reports/*.json", {
+            reportDir: "cypress/reports",
+            overwrite: false,
+            charts: true,
+          });
+
+          console.log("HTML gerado com sucesso!");
+        } catch (error) {
+          console.error("Erro ao gerar HTML:", error);
+        }
+      });
+
       return config;
     },
   },
-  
+
   component: {
     devServer: {
       framework: "react",
