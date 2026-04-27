@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "cypress run",
-    "pdf": "node gerar-pdf.js",
-    "all": "cypress run && node gerar-pdf.js"
+    "report": "node generate-pdf.js",
+    "test:report": "npm run test && npm run report"
   },
   "repository": {
     "type": "git",
@@ -24,6 +24,7 @@
     "@badeball/cypress-cucumber-preprocessor": "^24.0.1",
     "@bahmutov/cypress-esbuild-preprocessor": "^2.2.8",
     "@cypress/browserify-preprocessor": "^3.0.2",
+    "@types/cypress": "^0.1.6",
     "cypress": "^15.14.1",
     "cypress-mochawesome-reporter": "^4.0.2",
     "esbuild": "^0.28.0",

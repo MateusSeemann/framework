@@ -1,7 +1,14 @@
-
 export class CadastroPage {
-  // Seletores
-  get inputNome() {
-    return cy.get('input[type="text"][name="nome"], input[placeholder*="Nome"]');
+
+  validarCadastroVisivel() {
+    cy.get('.logo > span')
+      .should('be.visible')
+      .validateObject('.logo > span');
   }
+
+   clickInForms() {
+    cy.get('a[title="Forms"]')
+    .clickObject('a[title="Forms"]', 'click-in-forms');
+  }
+
 }
