@@ -5,3 +5,8 @@ When('Devo ver', () => {
   const cadastroPage = new CadastroPage();
   cadastroPage.validarCadastroVisivel();
 });
+
+When('pesquiso pelo {string}', (celular) => {
+  const pageCadastro = new CadastroPage();
+  pageCadastro.writeText(celular);
+});

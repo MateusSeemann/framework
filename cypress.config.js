@@ -7,6 +7,7 @@ module.exports = defineConfig({
 
   projectId: "framework",
 
+  scrollBehavior: false,
   viewportWidth: 1920,
   viewportHeight: 1080,
 
